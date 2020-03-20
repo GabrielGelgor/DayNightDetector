@@ -34,13 +34,17 @@ def prediction(x, theta):
 x, y = make_classification(n_samples=500, n_features=2, n_redundant=0, n_informative=1, n_clusters_per_class=1, random_state=14)
 y = y[:,np.newaxis]
 sns.set_style('white')
+
+print(y)
+
 sns.scatterplot(x[:,0],x[:,1],hue=y.reshape(-1))
 plt.show()
+plt.clf()
 
 
 m = len(y)
 
-x = np.hstack((np.ones((m,1)), x)) #introducing x_0 to the parameters
+x = np.hstack((np.ones((m,1)), x)) #NOTE: introducing x_0 to the parameters
 n = np.size(x,1) #number of training examples - improvement would be splitting the data up...60/20/20
 params = np.zeros((n,1))
 
@@ -55,14 +59,16 @@ print("initial cost is: {}\n".format(initial_cost))
 
 print("Optimal parameters are\n", opt_params, "\n")
 
-'''
+
 plt.figure()
 sns.set_style('white')
 plt.plot(range(len(history)), history)
 plt.title("Convergence Graph of Cost Function")
 plt.xlabel("Number of Iterations")
 plt.ylabel("Cost")
-'''
+plt.show()
+
+
 
 y_predict = prediction(x, opt_params)
 score = float(sum(y_predict == y))/ float(len(y))
